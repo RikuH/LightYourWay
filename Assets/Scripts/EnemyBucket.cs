@@ -9,6 +9,7 @@ public class EnemyBucket : MonoBehaviour
     public GameObject player;
     Vector3 startPosition;
     NavMeshAgent agent;
+    public ParticleSystem water;
 
     private void Awake()
     {
@@ -32,14 +33,15 @@ public class EnemyBucket : MonoBehaviour
         {
             //agent.Warp(player.transform.position);
             agent.SetDestination(player.transform.position);
+            water.Play();
         }
     }
     private void OnTriggerExit(Collider other)
     {
         if(other.tag == "Player")
         {
-            Debug.Log(startPosition + " " + this.transform.position);
             agent.SetDestination(startPosition);
+            water.Stop();
         }
     }
 }
