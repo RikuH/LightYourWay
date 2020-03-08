@@ -4,12 +4,16 @@ using UnityEngine;
 
 public class BucketHarmer : MonoBehaviour
 {
+    public AudioClip death;
     private void OnTriggerEnter(Collider other)
     {
         //DEAD
         if (other.tag == "Player")
         {
-            Debug.Log("DEAD");
+                AudioSource audio = GetComponent<AudioSource>();
+
+                audio.Play();
+                audio.clip = death;
         }
     }
 }

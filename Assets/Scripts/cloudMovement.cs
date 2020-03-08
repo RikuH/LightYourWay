@@ -9,6 +9,7 @@ public class cloudMovement : MonoBehaviour
     public float speed = 2.0f;
     public float pos1;
     public float pos2;
+    public AudioClip death;
 
     void Update()
     {
@@ -22,6 +23,7 @@ public class cloudMovement : MonoBehaviour
 
             if (transform.position.x >= pos1)
             {
+                Debug.Log(dirRight);
                 dirRight = false;
             }
 
@@ -57,6 +59,10 @@ public class cloudMovement : MonoBehaviour
         if(other.tag == "Player")
         {
             Debug.Log("DEAD");
+            AudioSource audio = GetComponent<AudioSource>();
+
+            audio.Play();
+            audio.clip = death;
         }
     }
 }
