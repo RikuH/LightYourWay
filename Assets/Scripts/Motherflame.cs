@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class Motherflame : MonoBehaviour
 {
@@ -14,12 +15,16 @@ public class Motherflame : MonoBehaviour
     private string currentText = "";
     private string fullText;
 
+    public Button button;
+
     public PlayerMove playerStuff;
     bool doOnce = true;
 
     private void Start()
     {
-        fullText = "When light is revealed, the shadows rise...";
+        fullText = "When light is revealed, the shadows rise...\n\n" +
+            "Find your way to Motherflame\n" +
+            "Mouse click to move";
         StartCoroutine(Typewriter());
         GamePanel.color = new Color(0, 0, 0, 1);
     }
@@ -30,12 +35,13 @@ public class Motherflame : MonoBehaviour
         {
             fullText = "The shadows are far away because the flame burns stronger.\n" +
             "Thank you for playing!";
-            if (GamePanel.color.a < 1)
+            if (GamePanel.color.a < 10)
             {
                 GamePanel.color += new Color(0, 0, 0, 0.01f);
 
                 //Disable inputs
                 playerStuff.inputDisabled = true;
+
             }
         }
         else if (playerStuff.isDead)
@@ -84,6 +90,13 @@ public class Motherflame : MonoBehaviour
             yield return new WaitForSeconds(delay);
         }
         yield return new WaitForSeconds(1);
-        EndText.text = "";
+
+        if (!playerStuff.isDead)
+        {
+            EndText.text = "";
+            if (win)
+                SceneManager.LoadScene(0);
+        }
+
     }
 }
