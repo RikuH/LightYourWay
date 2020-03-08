@@ -6,33 +6,45 @@ using UnityEngine.UI;
 
 public class Motherflame : MonoBehaviour
 {
-    public Image EndPanel;
+    public Image GamePanel;
     bool win = false;
 
     public TextMeshProUGUI EndText;
     private float delay = 0.05f;
-    private string currentText = ""; 
+    private string currentText = "";
     private string fullText;
 
     private void Start()
     {
-        fullText = "The shadows are far away because the flame burns stronger.\n" +
-            "Thank you for playing!";
+        fullText = "When light is revealed, the shadows rise...";
+        StartCoroutine(Typewriter());
+        GamePanel.color = new Color(0, 0, 0, 1);
     }
 
     void Update()
     {
         if (win)
         {
-            if (EndPanel.color.a < 1)
+            fullText = "The shadows are far away because the flame burns stronger.\n" +
+            "Thank you for playing!";
+            if (GamePanel.color.a < 1)
             {
-                EndPanel.color += new Color(0, 0, 0, 0.01f);
+                GamePanel.color += new Color(0, 0, 0, 0.01f);
 
 
                 //Disable inputs
             }
         }
 
+        else
+        {
+            if (GamePanel.color.a >= 0)
+            {
+                GamePanel.color -= new Color(0, 0, 0, 0.01f);
+
+            }
+
+        }
     }
     private void OnTriggerEnter(Collider other)
     {
@@ -54,5 +66,7 @@ public class Motherflame : MonoBehaviour
             EndText.text = currentText;
             yield return new WaitForSeconds(delay);
         }
+        yield return new WaitForSeconds(1);
+        EndText.text = "";
     }
 }
