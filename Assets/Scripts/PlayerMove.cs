@@ -12,10 +12,15 @@ public class PlayerMove : MonoBehaviour
     NavMeshAgent agent;
     Rigidbody rb;
 
+    public bool isDead = false;
+    Animator anim;
+    public bool inputDisabled = false;
+
     void Awake()
     {
         rb = GetComponent<Rigidbody>();
         agent = GetComponent<NavMeshAgent>();
+        anim = GetComponent<Animator>();
     }
 
     void Start()
@@ -25,12 +30,20 @@ public class PlayerMove : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetMouseButton(0))
+        if (!inputDisabled)
         {
-            setTargetPosition();
-            movePlayer();
-        }
+            if (Input.GetMouseButton(0))
+            {
+                setTargetPosition();
+                movePlayer();
+            }
 
+            if (isDead)
+            {
+                inputDisabled = true;
+                anim.SetBool("isDead", true);
+            }
+        }
     }
 
     void setTargetPosition()

@@ -10,6 +10,8 @@ public class cloudMovement : MonoBehaviour
     public float pos1;
     public float pos2;
     public AudioClip death;
+    public PlayerMove playerStuff;
+
 
     void Update()
     {
@@ -63,6 +65,8 @@ public class cloudMovement : MonoBehaviour
 
             audio.Play();
             audio.clip = death;
+
+            playerStuff.isDead = true;
         }
     }
 }

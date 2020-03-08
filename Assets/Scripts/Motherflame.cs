@@ -14,6 +14,9 @@ public class Motherflame : MonoBehaviour
     private string currentText = "";
     private string fullText;
 
+    public PlayerMove playerStuff;
+    bool doOnce = true;
+
     private void Start()
     {
         fullText = "When light is revealed, the shadows rise...";
@@ -21,7 +24,7 @@ public class Motherflame : MonoBehaviour
         GamePanel.color = new Color(0, 0, 0, 1);
     }
 
-    void Update()
+    void FixedUpdate()
     {
         if (win)
         {
@@ -31,11 +34,24 @@ public class Motherflame : MonoBehaviour
             {
                 GamePanel.color += new Color(0, 0, 0, 0.01f);
 
-
                 //Disable inputs
+                playerStuff.inputDisabled = true;
             }
         }
+        else if (playerStuff.isDead)
+        {
+            fullText = "Flame extinguished. The shadows has risen.";
+            if (GamePanel.color.a < 1)
+            {
 
+                GamePanel.color += new Color(0, 0, 0, 0.01f);
+            }
+            if (doOnce)
+            {
+                doOnce = false;
+                StartCoroutine(Typewriter());
+            }
+        }
         else
         {
             if (GamePanel.color.a >= 0)
@@ -45,6 +61,7 @@ public class Motherflame : MonoBehaviour
             }
 
         }
+
     }
     private void OnTriggerEnter(Collider other)
     {
