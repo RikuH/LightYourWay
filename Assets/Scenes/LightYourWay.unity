@@ -632,6 +632,11 @@ PrefabInstance:
       propertyPath: EndText
       value: 
       objectReference: {fileID: 856509766}
+    - target: {fileID: 7383412078199546980, guid: 854af19c7bcbc8a4bbc15e229dc5829d,
+        type: 3}
+      propertyPath: GamePanel
+      value: 
+      objectReference: {fileID: 770766891}
     - target: {fileID: 7383412078199546981, guid: 854af19c7bcbc8a4bbc15e229dc5829d,
         type: 3}
       propertyPath: m_Name
